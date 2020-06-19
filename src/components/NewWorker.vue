@@ -1,26 +1,28 @@
 <template>
-  <div class="modal-backdrop">
-        <div class="modal">
-            <header class="modal-header">
-                <slot name="header">Добавление нового сотрудника</slot>
-            </header>
-            <section class="modal-body">
-                <slot name="body">
-                    <p><b>Имя:</b><br>
-                      <input type="text" size="40" v-model="name"></p>
-                    <p><b>Фамилия:</b><br>
-                      <input type="text" size="40" v-model="surname"></p>
+  <transition name="modal-fade">
+      <div class="modal-backdrop">
+          <div class="modal">
+              <header class="modal-header">
+                  <slot name="header">Добавление нового сотрудника</slot>
+              </header>
+              <section class="modal-body">
+                  <slot name="body">
+                      <p><b>Имя:</b><br>
+                          <input type="text" size="40" v-model="name"></p>
+                      <p><b>Фамилия:</b><br>
+                          <input type="text" size="40" v-model="surname"></p>
 
-                </slot>
-            </section>
-            <footer class="modal-footer">
-                <slot name="footer">
-                  <button class="btn-close" @click.prevent="close">Отмена</button>
-                  <button class="btn-save" @click="onSave"@click.prevent="close">Сохранить</button>
-                </slot>
-            </footer>
-        </div>
-  </div>
+                  </slot>
+              </section>
+              <footer class="modal-footer">
+                  <slot name="footer">
+                      <button class="btn-close" @click.prevent="close">Отмена</button>
+                      <button class="btn-save" @click="onSave"@click.prevent="close">Сохранить</button>
+                  </slot>
+              </footer>
+          </div>
+      </div>
+  </transition>
 </template>
 <script>
     export default {
@@ -116,5 +118,14 @@
     button:hover {
       background: #ecdcdc;
       cursor: pointer;
+    }
+    .modal-fade-enter,
+    .modal-fade-leave-active {
+      opacity: 0;
+    }
+
+    .modal-fade-enter-active,
+    .modal-fade-leave-active {
+      transition: opacity .10s ease;
     }
 </style>

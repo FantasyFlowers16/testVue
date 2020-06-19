@@ -35,6 +35,7 @@ export default {
       padding: 10px;
       background: beige;
       display: flex;
+      margin-bottom: 3px;
     }
     .first{
       display: flex;
@@ -48,7 +49,7 @@ export default {
     button{
       padding: 4px;
       margin: 4px;
-      border-radius: 10px;
+      border-radius: 7px;
       color: #2c3e50;
       border-color:#80050587;
       outline:none;
