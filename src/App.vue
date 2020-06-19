@@ -19,26 +19,25 @@ export default {
     data(){
       return{
           worker:[],
-          isModalVisible: false
+
       }
     },
-
+    mounted() {
+        fetch('https://jsonplaceholder.typicode.com/users')
+            .then(response => response.json())
+            .then(json =>{
+              this.worker=json;
+              console.log(json);
+            })
+    },
     methods:{
       deleteWorker(id){
-          this.worker=this.worker.filter(t=>t.id!==id)
+        this.worker=this.worker.filter(t=>t.id!==id)
       },
-      showModal() {
-          this.isModalVisible = true;
-      },
-      closeModal() {
-          this.isModalVisible = false;
-      }
 
   },
   components: {
     Workers
-
-
   }
 }
 </script>

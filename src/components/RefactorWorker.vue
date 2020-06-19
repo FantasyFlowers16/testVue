@@ -1,5 +1,5 @@
 <template>
-    <div >
-
+    <div>
+        <b>Редактировать</b>
     </div>
 </template>
