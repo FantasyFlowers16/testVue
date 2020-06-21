@@ -8,36 +8,47 @@
     @delete-worker="deleteWorker"
     />
     <p v-else>Список сотрудников отсутствует.</p>
+
   </div>
 </template>
 
 <script>
 import Workers from '@/components/Workers'
+import axios from "axios";
 export default {
   name: 'App',
     data(){
-      return{
-        worker:[],
-
+      return {
+      worker:[ ],
+      urls: {
+          ListUser: 'http://localhost:3000/api/v1/person/'
+          },
       }
+
     },
-    mounted() {
-        fetch('https://jsonplaceholder.typicode.com/users')
-          .then(response => response.json())
-          .then(json =>{
-            this.worker=json;
-            console.log(json);
-          })
-    },
+
+
     methods:{
       deleteWorker(id){
-        this.worker=this.worker.filter(t=>t.id!==id)
-      },
+          axios.delete('http://localhost:3000/api/v1/person/'+id)
+
+        //this.worker=this.worker.filter(t=>t.id!==id);
+       // console.log(this.worker);
+
+      }
+  },
+    mounted() {
+        axios
+            .get(this.urls.ListUser)
+            .then(response => (this.worker=response.data))
+
+    },
+    components: {
+    Workers,
 
   },
-  components: {
-    Workers
-  }
+
+
 }
 </script>
 

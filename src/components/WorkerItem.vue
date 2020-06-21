@@ -2,8 +2,9 @@
     <li>
       <div class="first">
         {{ind+1}}
-        {{w.name}}
-        {{w.surname}}
+        {{w.firstname}}
+        {{w.lastname}}
+
       </div>
         <div class="second">
           <button>Редактировать</button>
@@ -12,18 +13,29 @@
     </li>
 </template>
 <script>
-import Refact from '@/components/RefactorWorker';
 export default {
     props:{
         w:{
           type:Object,
           required: true,
-
         },
-        ind:Number
+      data(){
+         return{
+           firstname:'',
+           lastname:''
+         }
+
+      },
+        ind:Number,
+        firstname:String,
+        lastname:String
     },
-    components:
-    Refact,
+  data(){
+    return {
+
+    }
+  },
+
 }
 </script>
 <style scoped>

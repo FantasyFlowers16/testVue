@@ -3,14 +3,13 @@
         <ul>
             <WorkerItem
               v-for="(w,i) of worker"
+
               v-bind:w="w"
               v-bind:ind="i"
-              v-on:delete-worker="deleteWorker"
-            />
-            <v-notification
-                :messages="messages"
+              @delete-worker="deleteWorker"
             />
         </ul>
+
         <button class="btn" @click="showModal" > Добавить пользователя </button>
         <NewW
           v-show="isModalVisible"
@@ -18,31 +17,35 @@
           @new-worker="newWorker"
         />
 
+
+
     </div>
 </template>
 <script>
 import  WorkerItem from '@/components/WorkerItem'
 import NewW from '@/components/NewWorker'
-//import Notification from '@components/V-notification'
+import axios from "axios";
 
 export default {
     props:['worker'],
     components:{
       WorkerItem,
       NewW,
-      //Notification
+
     },
-    data () {
+    data(){
+
       return {
         isModalVisible: false,
-        messages:[
-            {name:'something name',id:Date.now}
-        ]
+          error:[]
+
       };
     },
     methods:{
       deleteWorker(id){
         this.$emit("delete-worker",id);
+          console.log(this.worker.length)
+
       },
       showModal() {
         this.isModalVisible = true;
@@ -51,8 +54,16 @@ export default {
         this.isModalVisible = false;
       },
       newWorker(w){
-        this.worker.push(w);
-      }
+          axios.post('http://localhost:3000/api/v1/person/', w)
+              .then((response) => {
+                  console.log(response);
+              })
+              .catch((error) => {
+                  console.log(error);
+              });
+      },
+
+
     }
 }
 </script>

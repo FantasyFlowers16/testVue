@@ -8,9 +8,9 @@
               <section class="modal-body">
                   <slot name="body">
                       <p><b>Имя:</b><br>
-                          <input type="text" size="40" v-model="name"></p>
+                          <input type="text" size="40" v-model="firstname" value=""></p>
                       <p><b>Фамилия:</b><br>
-                          <input type="text" size="40" v-model="surname"></p>
+                          <input type="text" size="40" v-model="lastname"></p>
 
                   </slot>
               </section>
@@ -26,11 +26,10 @@
 </template>
 <script>
     export default {
-        name: 'modal',
     data(){
         return{
-            name:'',
-            surname:''
+            firstname:'',
+            lastname:''
         }
     },
         methods: {
@@ -38,16 +37,19 @@
               this.$emit('close');
             },
             onSave(){
-              if (this.name.trim() && this.surname.trim()){
+              if (this.firstname.trim() && this.lastname.trim()){
                 const NewWorker={
                   id: Date.now(),
-                  name: this.name,
-                  surname: this.surname
+                  firstname: this.firstname,
+                  lastname: this.lastname
               }
               this.$emit('new-worker',NewWorker);
-              this.surname='';
-              this.name='';
-              }
+              this.lastname='';
+              this.firstname='';
+              }else console.log("Заполните все поля")
+
+
+
             }
         }
     };

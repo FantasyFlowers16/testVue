@@ -1,19 +1,29 @@
 {
-  "posts": [
+  "person": [
     {
-      "id": 1,
-      "title": "json-server",
-      "author": "typicode"
-    }
-  ],
-  "comments": [
+      "id": 3,
+      "firstname": "Светлана",
+      "lastname": "Пандорина"
+    },
     {
-      "id": 1,
-      "body": "some comment",
-      "postId": 1
+      "id": 4,
+      "firstname": "Стас",
+      "lastname": "Костюшкин"
+    },
+    {
+      "id": 1592683070259,
+      "firstname": "Анастасия",
+      "lastname": "Голубева"
+    },
+    {
+      "id": 1592687306625,
+      "firstname": "Арнольд",
+      "lastname": "Шварц"
+    },
+    {
+      "id": 1592687696241,
+      "firstname": "Frank",
+      "lastname": "Gamilton"
     }
-  ],
-  "profile": {
-    "name": "typicode"
-  }
+  ]
 }
