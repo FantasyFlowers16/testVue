@@ -8,15 +8,15 @@
               <section class="modal-body">
                   <slot name="body">
                       <p><b>Имя:</b><br>
-                          <input type="text" size="40" v-model="firstname" value=""></p>
+                          <input type="text" size="40" v-model="firstname"placeholder="Введите имя"></p>
                       <p><b>Фамилия:</b><br>
-                          <input type="text" size="40" v-model="lastname"></p>
+                          <input type="text" size="40" v-model="lastname" placeholder="Введите фамилию"></p>
 
                   </slot>
               </section>
               <footer class="modal-footer">
                   <slot name="footer">
-                      <button class="btn-close" @click.prevent="close">Отмена</button>
+                      <button class="btn-close" @click.prevent="close">Назад</button>
                       <button class="btn-save" @click="onSave"@click.prevent="close">Сохранить</button>
                   </slot>
               </footer>
@@ -25,11 +25,14 @@
   </transition>
 </template>
 <script>
+import message from '@/notification/vue-notification'
     export default {
+        props:['count'],
     data(){
         return{
             firstname:'',
-            lastname:''
+            lastname:'',
+
         }
     },
         methods: {
@@ -39,19 +42,25 @@
             onSave(){
               if (this.firstname.trim() && this.lastname.trim()){
                 const NewWorker={
-                  id: Date.now(),
+                  id: this.count+1,
                   firstname: this.firstname,
                   lastname: this.lastname
               }
-              this.$emit('new-worker',NewWorker);
-              this.lastname='';
-              this.firstname='';
-              }else console.log("Заполните все поля")
+                  this.$emit('new-worker',NewWorker);
+                  this.$toasted.success(message['saveNewWorker'],{ position:'bottom-center'}).goAway(4000)
+                  this.lastname='';
+                  this.firstname='';
+              }else{
 
-
-
+                  if (this.firstname === '' && this.lastname === ''){
+                      this.$toasted.error(message['notNameAndSurname'],{ position:'bottom-center'}).goAway(4000)}
+                  else if(this.lastname === ''){
+                      this.$toasted.error(message['notName'],{ position:'bottom-center'}).goAway(4000)
+                  }else{
+                      this.$toasted.error(message['notSurname'],{ position:'bottom-center'}).goAway(4000)}
+                }
+              }
             }
-        }
     };
 </script>
 <style>
@@ -81,11 +90,12 @@
     }
 
     .modal-header {
-      border-bottom: 1px solid #eeeeee;
+      border-bottom: 1px solid #dcb8b8;
       color: #590303;
       justify-content: space-between;
       font-size: 14pt;
-      font-family:"GeorgiaAvenir, Helvetica, Arial, sans-serif",serif
+      font-family:"GeorgiaAvenir, Helvetica, Arial, sans-serif",serif;
+      background: #ece2e2;
     }
 
     .modal-footer {
@@ -98,7 +108,6 @@
       padding: 60px 30px;
       font-family:"GeorgiaAvenir, Helvetica, Arial, sans-serif",serif;
 }
-
 
     .btn-close {
       padding: 4px;
